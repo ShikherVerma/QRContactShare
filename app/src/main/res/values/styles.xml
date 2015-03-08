@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	
+	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar" />
+	
+	<style name="ContactListView">
+		<item name="android:verticalScrollbarPosition">right</item>
+		<item name="android:fastScrollAlwaysVisible">true</item>
+		<item name="android:scrollbarStyle">outsideInset</item>
+	</style>
+	
+	<style name="listViewActivatedStyle" />
+	
+	<style name="quickContactBadgeStyle">
+		<item name="android:background">@drawable/quickcontact_badge_small</item>
+	</style>
+	
+	<style name="searchTextHiglight">
+		<item name="android:textColor">@color/holo_blue</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+	
+	<style name="addressHeader" parent="@android:style/TextAppearance.Small">
+		<item name="android:textAllCaps">true</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+	
+	<style name="addressDetail" parent="@android:style/TextAppearance.Medium">
+		<item name="android:fontFamily">sans-serif-light</item>
+		<item name="android:textIsSelectable">true</item>
+	</style>
+	
+	<style name="contactNameTitle" parent="@android:style/TextAppearance.Large">
+		<item name="android:textSize">38sp</item>
+		<item name="android:fontFamily">sans-serif</item>
+		<item name="android:textIsSelectable">true</item>
+	</style>
+	
+	<style name="addressButton" />
+	
+	<style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowBackground">@null</item>
+		<item name="metaButtonBarStyle">@style/ButtonBar</item>
+		<item name="metaButtonBarButtonStyle">@style/ButtonBarButton</item>
+	</style>
+	
+	<style name="ButtonBar">
+		<item name="android:paddingLeft">2dp</item>
+		<item name="android:paddingTop">5dp</item>
+		<item name="android:paddingRight">2dp</item>
+		<item name="android:paddingBottom">0dp</item>
+		<item name="android:background">@android:drawable/bottom_bar</item>
+	</style>
+	
+	<style name="ButtonBarButton" />
+	
+</resources>
