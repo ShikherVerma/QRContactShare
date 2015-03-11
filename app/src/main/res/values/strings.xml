@@ -38,5 +38,6 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_contact_list">contactList</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_qrdisplay">qrdisplay</string>
 
 </resources>

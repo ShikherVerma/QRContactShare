@@ -4,15 +4,12 @@ import android.app.ListActivity;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.provider.ContactsContract;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -33,7 +30,7 @@ public class contactList extends ListActivity implements LoaderManager.LoaderCal
 	// This is the select criteria
 	static final String SELECTION = "((" +
 			ContactsContract.Data.DISPLAY_NAME + " NOTNULL) AND (" +
-			ContactsContract.Data.DISPLAY_NAME + " != '' ))";
+			ContactsContract.Data.DISPLAY_NAME + " != '' ) AND ("+ ContactsContract.Contacts.HAS_PHONE_NUMBER + "=='1' ))";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,16 +88,43 @@ public class contactList extends ListActivity implements LoaderManager.LoaderCal
 	}
 
 	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
+	public void onListItemClick(ListView l, View v, int position, long id)
+	{
 		// Do something when a list item is clicked
 		ContentResolver cr;
 		Cursor cursor = (Cursor) mAdapter.getItem(position);
-		String szDisplayName = cursor.getString(cursor.getColumnIndexOrThrow( ContactsContract.Contacts.DISPLAY_NAME));
-		String szId = cursor.getString(cursor.getColumnIndexOrThrow( ContactsContract.Contacts._ID));
-		int nId = cursor.getInt(cursor.getColumnIndexOrThrow( ContactsContract.Contacts._ID));
-		Toast.makeText(getBaseContext(), "Item click:\n szId:"+szId+" nId:"+nId+" Data:"+szDisplayName, Toast.LENGTH_SHORT).show();
+		String szDisplayName = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
+		String szId = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+		int nId = cursor.getInt(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+		cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+				null,
+				ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "='" + szId + "'",
+				null, null);
 
+		int phoneNumberIndex = cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER);
+		String phoneNumber = "";
+		try
+		{
+			if (cursor.moveToNext())
+			{
+				phoneNumber = cursor.getString(phoneNumberIndex);
+			}
+		}
+		finally
+		{
+			cursor.close();
+		}
+		if(phoneNumber=="")
+			Toast.makeText(getBaseContext(), "Item click:" + phoneNumber + " szId:" + szId + " nId:" + nId + " Data:" + szDisplayName, Toast.LENGTH_SHORT).show();
+		else
+		{
+			Intent i = new Intent(this, QRcode.class);
+			String s =szDisplayName+"\n" + phoneNumber + "\n";
+			i.putExtra("info", s);
+			startActivity(i);
+		}
 	}
+
 }
 
 	/*@Override

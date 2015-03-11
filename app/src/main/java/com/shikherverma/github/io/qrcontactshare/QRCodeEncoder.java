@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.shikherverma.github.io.barcode;
+package com.shikherverma.github.io.qrcontactshare;
 
 import android.provider.ContactsContract;
 import android.graphics.Bitmap;
